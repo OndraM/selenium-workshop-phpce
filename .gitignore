@@ -1,0 +1,14 @@
+# We do not commit composer.lock to allow custom dependencies set on different platforms (PHP 5.6-7.1)
+composer.lock
+
+# Ignore libraries installed using Composer
+composer.phar
+composer
+vendor
+
+# Ignore test logs
+logs
+.php_cs.cache
+
+# IDE files
+.idea
