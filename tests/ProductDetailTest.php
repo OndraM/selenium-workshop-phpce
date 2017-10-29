@@ -2,27 +2,32 @@
 
 namespace My;
 
-use Facebook\WebDriver\WebDriverBy;
+use My\Page\ProductDetailPage;
 
 class ProductDetailTest extends AbstractTestCase
 {
+    /** @var ProductDetailPage */
+    private $productDetailPage;
+
+    /** @before */
+    public function init()
+    {
+        $this->productDetailPage = new ProductDetailPage($this);
+    }
+
     /**
      * @test
      */
     public function shouldDisplayBasicProductInformation()
     {
-        $this->wd->get(static::getBaseUrl() . 'products/t-shirt-minus');
+        $this->productDetailPage->openProductWithSlug('t-shirt-minus');
 
-        $header = $this->wd->findElement(WebDriverBy::cssSelector('h1'))
-            ->getText();
-        // Or use syntax sugar: $header = $this->findByCss('h1')->getText();
+        $header = $this->productDetailPage->getHeader();
         $this->assertSame('T-Shirt "minus"', $header);
 
         $this->debug('Product detail header was: ' . $header);
 
-        $price = $this->wd->findElement(WebDriverBy::cssSelector('#product-price'))
-            ->getText();
-        // Or use syntax sugar: $price = $this->findByCss('#product-price')->getText();
+        $price = $this->productDetailPage->getPrice();
         $this->assertSame('€1.48', $price);
 
         $this->debug('Product detail header was: ' . $price);
