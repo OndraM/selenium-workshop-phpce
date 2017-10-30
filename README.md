@@ -54,7 +54,7 @@ $ docker run -p 4444:4444 -p 5900:5900 selenium/standalone-chrome-debug:3.6.0
 ```
 **⚠ The Docker image is almost 400 MB download, so definitely do this ⤴ in advance!**
 
-The previous command will make Selenium listening on `localhost` port `4444`. On port 5900 the browser GUI is exposed for VNC. 
+The previous command will make Selenium listening on `localhost` port `4444` and on port 5900 the browser GUI is exposed for VNC.
 So to see the GUI, you just need to use your favorite remote desktop VNC viewer and connect to host `127.0.0.1:5900`.
 
 For example on Linux with `vncviewer`:
@@ -64,6 +64,8 @@ $ vncviewer 127.0.0.1:5900 # if asked, enter password 'secret'
 ```
 
 If you see an empty desktop with Ubuntu logo on black background, the environment is prepared to execute the Selenium tests. 🎉
+
+If you wan't to stop the running Docker image, hit `Ctrl+C` in the shell where it was started.
 
 ### B. Classic setup-only steps 💻
 
@@ -109,5 +111,6 @@ If you started Selenium locally, Chrome windows should start popping-up right in
 
 ### Troubles?
 
-If you encounter any trouble while preparing your environment for the workshop, please fill an issue in this repository.
+If you encounter any trouble while preparing your environment for the workshop, please
+[fill an issue](https://github.com/OndraM/selenium-workshop-phpce/issues/new) in this repository.
 I will do my best to help you as soon as possible.
