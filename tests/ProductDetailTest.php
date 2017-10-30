@@ -32,4 +32,22 @@ class ProductDetailTest extends AbstractTestCase
 
         $this->debug('Product detail header was: ' . $price);
     }
+
+    /** @test */
+    public function shouldAddProductToCart()
+    {
+        $this->productDetailPage->openProductWithSlug('t-shirt-minus');
+
+        $priceOnProductDetail = $this->productDetailPage->getPrice();
+
+        $cartPage = $this->productDetailPage->addToCart();
+
+        // Make sure the product in the cart is the one we added previously
+        $productInCartName = $cartPage->getNameOfFirstProductInCart();
+        $this->assertContains('"minus"', $productInCartName);
+
+        // Also check the price is the same as the one shown on product detail
+        $productInCartPrice = $cartPage->getUnitPriceOfFirstProductInCart();
+        $this->assertSame($productInCartPrice, $priceOnProductDetail);
+    }
 }

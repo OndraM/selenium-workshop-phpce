@@ -9,6 +9,7 @@ class ProductDetailPage extends AbstractComponent
 {
     const HEADER_SELECTOR = 'h1';
     const PRICE_SELECTOR = '#product-price';
+    const ADD_TO_CART_BUTTON_SELECTOR = '#sylius-product-adding-to-cart button.primary';
 
     /**
      * @param string $slug
@@ -32,5 +33,18 @@ class ProductDetailPage extends AbstractComponent
     public function getPrice()
     {
         return $this->findByCss(self::PRICE_SELECTOR)->getText();
+    }
+
+    /**
+     * @return CartPage
+     */
+    public function addToCart()
+    {
+        $this->findByCss(self::ADD_TO_CART_BUTTON_SELECTOR)->click();
+
+        $cartPage = new CartPage($this->tc);
+        $cartPage->waitUnitLoaded();
+
+        return $cartPage;
     }
 }
