@@ -29,4 +29,16 @@ class CartPage extends AbstractComponent
     {
         return $this->findByCss(self::PRODUCTS_IN_CART_UNIT_PRICE_SELECTOR)->getText();
     }
+
+    /**
+     * @return string[]
+     */
+    public function getNamesOfProductsInCart()
+    {
+        $productNames = [];
+
+        // TODO
+
+        return $productNames;
+    }
 }

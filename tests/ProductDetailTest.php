@@ -50,4 +50,19 @@ class ProductDetailTest extends AbstractTestCase
         $productInCartPrice = $cartPage->getUnitPriceOfFirstProductInCart();
         $this->assertSame($productInCartPrice, $priceOnProductDetail);
     }
+
+    /** @test */
+    public function shouldAddMultipleProductsToCart()
+    {
+        $this->productDetailPage->openProductWithSlug('t-shirt-minus');
+        $this->productDetailPage->addToCart();
+
+        // Add second product to cart
+        $this->productDetailPage->openProductWithSlug('TODO');
+        $cartPage = $this->productDetailPage->addToCart();
+        // ↑↑↑ Note the addToCart() method returns an instance of CartPage page object.
+        // This is because after adding item to cart user is actually navigated this new page.
+
+        // TODO: assert the cart contains the exact products added in previous steps
+    }
 }
