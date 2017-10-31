@@ -37,7 +37,12 @@ class CartPage extends AbstractComponent
     {
         $productNames = [];
 
-        // TODO
+        $productNamesElements = $this->findMultipleByCss(self::PRODUCTS_IN_CART_NAME_SELECTOR);
+
+        foreach ($productNamesElements as $element) {
+            $productNames[] = $element->getText();
+            $this->log($element->getText());
+        }
 
         return $productNames;
     }

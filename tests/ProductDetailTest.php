@@ -58,11 +58,18 @@ class ProductDetailTest extends AbstractTestCase
         $this->productDetailPage->addToCart();
 
         // Add second product to cart
-        $this->productDetailPage->openProductWithSlug('TODO');
+        $this->productDetailPage->openProductWithSlug('sticker-laborum');
         $cartPage = $this->productDetailPage->addToCart();
         // ↑↑↑ Note the addToCart() method returns an instance of CartPage page object.
         // This is because after adding item to cart user is actually navigated this new page.
 
-        // TODO: assert the cart contains the exact products added in previous steps
+        $allProductsInCart = $cartPage->getNamesOfProductsInCart();
+
+        $this->assertCount(2, $allProductsInCart);
+
+        $this->assertSame(
+            ['T-Shirt "minus"', 'Sticker "laborum"'],
+            $allProductsInCart
+        );
     }
 }
