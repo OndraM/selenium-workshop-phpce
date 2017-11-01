@@ -52,13 +52,10 @@ class CheckoutTest extends AbstractTestCase
         $checkoutPage = $cartPage->goToCheckout();
 
         $checkoutPage->fillEmail('user@example.com');
+        $checkoutPage->waitUntilLoginFormIsShown();
+        $checkoutPage->fillPassword('sylius');
+        $checkoutPage->submitLoginFormAndWaitForLogin();
 
-        // TODO: wait until login form is shown
-
-        // TODO: fill password to the newly shown form (password is "sylius")
-
-        // TODO: submit form (use $checkoutPage->submitLoginFormAndWaitForLogin())
-
-        // TODO: assert $checkoutPage->getNameOfLoggedUser() contains John Doe
+        $this->assertContains('John Doe', $checkoutPage->getNameOfLoggedUser());
     }
 }

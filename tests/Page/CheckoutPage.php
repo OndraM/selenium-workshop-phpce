@@ -165,4 +165,21 @@ class CheckoutPage extends AbstractComponent
         return $this->findByCss(self::LOGGED_USER_HEADER_SELECTOR)
             ->getText();
     }
+
+    /**
+     * @return $this
+     */
+    public function waitUntilLoginFormIsShown()
+    {
+        $this->waitForCss(self::LOGIN_FORM_SELECTOR, true);
+
+        // OR the long version:
+        //$this->wd->wait()->until(
+        //    WebDriverExpectedCondition::visibilityOfElementLocated(
+        //        WebDriverBy::cssSelector(self::LOGIN_FORM_SELECTOR)
+        //    )
+        //);
+
+        return $this;
+    }
 }
