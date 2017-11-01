@@ -2,6 +2,7 @@
 
 namespace My;
 
+use Facebook\WebDriver\Remote\LocalFileDetector;
 use Lmc\Steward\Test\AbstractTestCase;
 
 class FileUploadTest extends AbstractTestCase
@@ -11,7 +12,12 @@ class FileUploadTest extends AbstractTestCase
     {
         $this->wd->get('https://simple-u6rzw4q-mxk4rjvb4la6e.eu.platform.sh/upload-simple.html');
 
-        // TODO: submit file Fixtures/image.jpg via 'upload' element
+        $fileElement = $this->findByName('upload');
+
+        $fileElement
+            ->setFileDetector(new LocalFileDetector())
+            ->sendKeys(__DIR__ . '/Fixtures/image.jpg')
+            ->submit();
 
         $this->waitForTitle('File upload endpoint');
         $header = $this->findByCss('h2')->getText();
