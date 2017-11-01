@@ -12,6 +12,9 @@ class JavaScriptExampleTest extends AbstractTestCase
         $this->wd->get('https://simple-u6rzw4q-mxk4rjvb4la6e.eu.platform.sh/hidden.html');
 
         $hiddenInput = $this->findById('input-hidden');
+
+        $this->wd->executeScript('arguments[0].type = "text";', [$hiddenInput]);
+
         $hiddenInput->clear()
             ->sendKeys('New value of hidden input');
 
