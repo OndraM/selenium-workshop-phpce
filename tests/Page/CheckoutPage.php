@@ -2,6 +2,7 @@
 
 namespace My\Page;
 
+use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverExpectedCondition;
 use Facebook\WebDriver\WebDriverSelect;
 use Lmc\Steward\Component\AbstractComponent;
@@ -18,6 +19,11 @@ class CheckoutPage extends AbstractComponent
     const CITY_NAME = self::ADDRESS_PREFIX . '[city]';
     const POSTCODE_NAME = self::ADDRESS_PREFIX . '[postcode]';
     const NEXT_BUTTON_SELECTOR = '#next-step';
+
+    const PASSWORD_SELECTOR = '#sylius-api-login-form input[type="password"]';
+    const LOGIN_FORM_SELECTOR = '#sylius-api-login-form';
+    const LOGIN_BUTTON_SELECTOR = '#sylius-api-login-submit';
+    const LOGGED_USER_HEADER_SELECTOR = '.text.menu > .right.menu > .item';
 
     public function waitUnitLoaded()
     {
@@ -105,6 +111,19 @@ class CheckoutPage extends AbstractComponent
         return $this;
     }
 
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function fillPassword($value)
+    {
+        $element = $this->findByCss(self::PASSWORD_SELECTOR);
+
+        $element->sendKeys($value);
+
+        return $this;
+    }
+
     public function submitAndWaitUntilSend()
     {
         $nextButton = $this->findByCss(self::NEXT_BUTTON_SELECTOR);
@@ -115,5 +134,35 @@ class CheckoutPage extends AbstractComponent
         $this->wd->wait(15)->until(
             WebDriverExpectedCondition::urlContains('checkout/select-shipping')
         );
+    }
+
+    /**
+     * @return $this
+     */
+    public function submitLoginFormAndWaitForLogin()
+    {
+        $this->findByCss(self::LOGIN_BUTTON_SELECTOR)
+            ->click();
+
+        // Wait until 'Sign in' header changes, ie. the user was logged in
+        $this->wd->wait()->until(
+            WebDriverExpectedCondition::not(
+                WebDriverExpectedCondition::elementTextIs(
+                    WebDriverBy::cssSelector(self::LOGGED_USER_HEADER_SELECTOR),
+                    'Sign in'
+                )
+            )
+        );
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNameOfLoggedUser()
+    {
+        return $this->findByCss(self::LOGGED_USER_HEADER_SELECTOR)
+            ->getText();
     }
 }

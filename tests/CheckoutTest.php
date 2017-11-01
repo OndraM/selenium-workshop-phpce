@@ -40,4 +40,25 @@ class CheckoutTest extends AbstractTestCase
 
         // ... other steps not implemented to make the example short
     }
+
+    /** @test */
+    public function shouldLoginExistingUserDuringCheckout()
+    {
+        $productDetailPage = new ProductDetailPage($this);
+
+        $productDetailPage->openProductWithSlug('sticker-laborum');
+        $cartPage = $productDetailPage->addToCart();
+
+        $checkoutPage = $cartPage->goToCheckout();
+
+        $checkoutPage->fillEmail('user@example.com');
+
+        // TODO: wait until login form is shown
+
+        // TODO: fill password to the newly shown form (password is "sylius")
+
+        // TODO: submit form (use $checkoutPage->submitLoginFormAndWaitForLogin())
+
+        // TODO: assert $checkoutPage->getNameOfLoggedUser() contains John Doe
+    }
 }
