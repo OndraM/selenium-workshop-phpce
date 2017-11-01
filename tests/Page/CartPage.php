@@ -8,6 +8,7 @@ class CartPage extends AbstractComponent
 {
     const PRODUCTS_IN_CART_NAME_SELECTOR = '#sylius-cart-items .sylius-product-name';
     const PRODUCTS_IN_CART_UNIT_PRICE_SELECTOR = '#sylius-cart-items .sylius-unit-price';
+    const CHECKOUT_BUTTON_SELECTOR = 'a.primary.labeled.button';
 
     public function waitUnitLoaded()
     {
@@ -45,5 +46,18 @@ class CartPage extends AbstractComponent
         }
 
         return $productNames;
+    }
+
+    /**
+     * @return CheckoutPage
+     */
+    public function goToCheckout()
+    {
+        $this->findByCss(self::CHECKOUT_BUTTON_SELECTOR)->click();
+
+        $checkoutPage = new CheckoutPage($this->tc);
+        $checkoutPage->waitUnitLoaded();
+
+        return $checkoutPage;
     }
 }

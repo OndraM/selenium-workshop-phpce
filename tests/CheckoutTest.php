@@ -25,18 +25,19 @@ class CheckoutTest extends AbstractTestCase
         $productDetailPage->openProductWithSlug('sticker-laborum');
         $cartPage = $productDetailPage->addToCart();
 
-        // TODO: go to checkout page
+        $checkoutPage = $cartPage->goToCheckout();
 
-        /* TODO: fill all required shipping address fields:
-            - Email
-            - FirstName
-            - LastName
-            - Street
-            - Country
-            - City
-            - Postcode
-        */
+        $checkoutPage
+            ->fillEmail($this->faker->email)
+            ->fillFirstName($this->faker->firstName)
+            ->fillLastName($this->faker->lastName)
+            ->fillStreet($this->faker->streetName)
+            ->fillCountry('United Kingdom')
+            ->fillCity($this->faker->city)
+            ->fillPostcode($this->faker->postcode);
 
-        // TODO: submit form with shipping address
+        $checkoutPage->submitAndWaitUntilSend();
+
+        // ... other steps not implemented to make the example short
     }
 }
