@@ -2,6 +2,8 @@
 
 [PhpCE 2017](https://2017.phpce.eu/) workshop on November 3, 2017.
 
+See also [slides for the workshop](https://www.slideshare.net/ondram/workshop-functional-testing-made-easy-with-phpunit-selenium-phpce-poland-november-2017-81619016).
+
 This hands-on training will show you how to start writing functional (aka end-to-end) tests for web applications and how 
 to execute them in real browsers, leveraging:
  - [Selenium](https://github.com/SeleniumHQ/selenium) - a cross-browser automation framework,
